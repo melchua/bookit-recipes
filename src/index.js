@@ -1,12 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import App from './components/App';
+// import axios from 'axios';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { recipeStore } from './models/RecipeStore'
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const myRecipeStore = recipeStore.create({
+   recipes: [] 
+}); 
+
+// myRecipeStore.load();
+
+// Book stuff
+// axios.get(`https://www.googleapis.com/recipes/v1/volumes?q=flowers+inauthor:keyes&key=AIzaSyBE2vtFJYpk5DQnOd5Cwlq3o48GL-eP03Q`)
+// .then(res => {
+//   const blah = res.data;  
+//   console.log( blah.items[6].volumeInfo.title ) ;
+// })
+
+
+ReactDOM.render(<App recipeStore={myRecipeStore}/>, document.getElementById('root'));
+
+
