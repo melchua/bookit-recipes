@@ -3,7 +3,6 @@ import logo from '../assets/chef.svg';
 import './App.css';
 import RecipeListView from './RecipeListView/RecipeListView';
 
-
 class App extends Component {
   render() {
     const {recipeStore} = this.props

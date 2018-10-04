@@ -18,17 +18,18 @@ export const Recipe = types
 
 export const recipeStore = types 
     .model("recipeStore", {
-        recipes: types.array(Recipe)
+        recipes: types.array(Recipe),
+        // currentRecipe: types.number // or can we use the id from the Recipe above?
     })
     .actions(self => ({
-        load: flow(function* load() {
+        load: flow(function* load(searchTerms, maxResults) {
 
             // search terms:
             // number of results
             // search query string
             const edamamId = '61ca0b40';
             const edamamKey = 'ba35bb3c71bca265a527193f29da4501';
-            const edamamRecipes = yield axios.get(`https://api.edamam.com/search?q=chicken&app_id=${edamamId}&app_key=${edamamKey}&from=0&to=10`);        
+            const edamamRecipes = yield axios.get(`https://api.edamam.com/search?q=${searchTerms}&app_id=${edamamId}&app_key=${edamamKey}&from=0&to=${maxResults}`);        
             const eRecipes = edamamRecipes.data.hits;
 
             const formattedRecipes = eRecipes.map((hits) => {
@@ -40,7 +41,5 @@ export const recipeStore = types
                 }
             });
             applySnapshot(self.recipes, formattedRecipes);
-            
-            // self.recipes.push(...edamamRecipes);
         }),
     }));

@@ -4,14 +4,14 @@ import './RecipeView.css';
 import { Image, Card } from 'semantic-ui-react';
 
 class RecipeView extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = { isRead: false };
-    // }
+    constructor(props) {
+        super(props);
+        this.state = { show: false };
+    }
     render() {
         const {recipe} = this.props;
         return (
-            <Card onClick={this.handleToggleRead}>
+            <Card onClick={this.showModal}>
                 {recipe.read ? <Image src={recipe.image} label={{ as: 'a', corner: 'right', icon: 'check circle' }} /> : 
                     <Image src={recipe.image} />
                 }
@@ -31,6 +31,12 @@ class RecipeView extends Component {
         this.props.recipe.toggle();
         console.log("after: ", this.props.recipe.read);
     };    
+    showModal = () => {
+        this.setState({show:true});
+    };
+    hideModal = () => {
+        this.setState({show:false});
+    };
 };
 
 export default observer(RecipeView);

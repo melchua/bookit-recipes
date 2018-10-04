@@ -10,7 +10,7 @@ const myRecipeStore = recipeStore.create({
    recipes: [] 
 }); 
 
-// myRecipeStore.load();
+// myRecipeStore.load('avocado', 9);
 
 // Book stuff
 // axios.get(`https://www.googleapis.com/recipes/v1/volumes?q=flowers+inauthor:keyes&key=AIzaSyBE2vtFJYpk5DQnOd5Cwlq3o48GL-eP03Q`)
