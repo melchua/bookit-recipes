@@ -29,17 +29,21 @@ export const recipeStore = types
             // search query string
             const edamamId = '61ca0b40';
             const edamamKey = 'ba35bb3c71bca265a527193f29da4501';
-            const edamamRecipes = yield axios.get(`https://api.edamam.com/search?q=${searchTerms}&app_id=${edamamId}&app_key=${edamamKey}&from=0&to=${maxResults}`);        
-            const eRecipes = edamamRecipes.data.hits;
+            try {
+                const edamamRecipes = yield axios.get(`https://api.edamam.com/search?q=${searchTerms}&app_id=${edamamId}&app_key=${edamamKey}&from=0&to=${maxResults}`);        
+                const eRecipes = edamamRecipes.data.hits;
 
-            const formattedRecipes = eRecipes.map((hits) => {
-                return {
-                    label: hits.recipe.label,
-                    image: hits.recipe.image,
-                    url: hits.recipe.url,
-                    // ingredients: data.recipe.ingredients
-                }
-            });
-            applySnapshot(self.recipes, formattedRecipes);
+                const formattedRecipes = eRecipes.map((hits) => {
+                    return {
+                        label: hits.recipe.label,
+                        image: hits.recipe.image,
+                        url: hits.recipe.url,
+                        // ingredients: data.recipe.ingredients
+                    }
+                });
+                applySnapshot(self.recipes, formattedRecipes);
+            } catch (e) {
+                console.log(e.message);
+            }
         }),
     }));
